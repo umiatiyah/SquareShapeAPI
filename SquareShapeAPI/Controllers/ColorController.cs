@@ -28,12 +28,12 @@ namespace SquareShapeAPI.Controllers
 
             if (isColor)
             {
-                string message = $"Color successfully changed to {color}";
+                string message = $"Color successfully changed to `{color}`";
                 return Ok(message);
             }
             else
             {
-                string message = $"Color can not changed to {color}, {color} not correct color name";
+                string message = $"Color can not changed to `{color}`, `{color}` not correct color name";
                 return BadRequest(message);
             }
         }
