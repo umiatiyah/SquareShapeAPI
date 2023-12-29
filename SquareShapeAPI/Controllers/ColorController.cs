@@ -20,20 +20,20 @@ namespace SquareShapeAPI.Controllers
         }
 
         [HttpPost("changeColor")]
-        public ActionResult ChangeColor([FromBody] string color)
+        public ActionResult ChangeColor([FromBody] ColorModel color)
         {
             bool isColor = false;
-			if (Array.Exists(ColorNames, name => name.ToLower() == color.ToLower()))
+			if (Array.Exists(ColorNames, name => name.ToLower() == color.ColorName.ToLower()))
 				isColor = true;
 
             if (isColor)
             {
-                string message = $"Color successfully changed to `{color}`";
+                string message = $"Color successfully changed to `{color.ColorName}`";
                 return Ok(message);
             }
             else
             {
-                string message = $"Color can not changed to `{color}`, `{color}` not correct color name";
+                string message = $"Color can not changed to `{color.ColorName}`, `{color.ColorName}` not correct color name";
                 return BadRequest(message);
             }
         }
