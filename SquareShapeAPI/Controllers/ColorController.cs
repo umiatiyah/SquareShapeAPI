@@ -26,15 +26,17 @@ namespace SquareShapeAPI.Controllers
 			if (Array.Exists(ColorNames, name => name.ToLower() == color.ColorName.ToLower()))
 				isColor = true;
 
+			ColorResponse response = new ColorResponse();
+            response.ColorName = color.ColorName;
             if (isColor)
             {
-                string message = $"Color successfully changed to `{color.ColorName}`";
-                return Ok(message);
+                response.Message = $"Color successfully changed to `{color.ColorName}`";
+                return Ok(response);
             }
             else
             {
-                string message = $"Color can not changed to `{color.ColorName}`, `{color.ColorName}` not correct color name";
-                return BadRequest(message);
+                response.Message = $"Color can not changed to `{color.ColorName}`, `{color.ColorName}` not correct color name";
+                return BadRequest(response);
             }
         }
 

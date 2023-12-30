@@ -6,4 +6,9 @@ namespace SquareShapeAPI
     {
         public string ColorName { get; set; }
     }
+
+    public class ColorResponse : ColorModel
+    {
+        public string Message { get; set; }
+    }
 }
