@@ -21,6 +21,18 @@ namespace SquareShapeAPI
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+
+                    webBuilder.UseKestrel(options =>
+                    {
+                        // HTTP 5000
+                        options.ListenLocalhost(5000);
+
+                        // HTTPS 5001
+                        options.ListenLocalhost(5001, builder =>
+                        {
+                            builder.UseHttps();
+                        });
+                    });
                 });
     }
 }

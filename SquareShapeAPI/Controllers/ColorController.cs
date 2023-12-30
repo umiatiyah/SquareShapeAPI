@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,14 +14,16 @@ namespace SquareShapeAPI.Controllers
     public class ColorController : ControllerBase
     {
         private readonly ILogger<ColorController> _logger;
+        private IHubContext<ColorHub> _colorHub;
 
-        public ColorController(ILogger<ColorController> logger)
+        public ColorController(ILogger<ColorController> logger, IHubContext<ColorHub> colorHub)
         {
             _logger = logger;
+			_colorHub = colorHub;
         }
 
         [HttpPost("changeColor")]
-        public ActionResult ChangeColor([FromBody] ColorModel color)
+        public async Task<ActionResult> ChangeColor([FromBody] ColorModel color)
         {
             bool isColor = false;
 			if (Array.Exists(ColorNames, name => name.ToLower() == color.ColorName.ToLower()))
@@ -30,6 +33,7 @@ namespace SquareShapeAPI.Controllers
             response.ColorName = color.ColorName;
             if (isColor)
             {
+				await _colorHub.Clients.All.SendAsync("ChangeColor", color.ColorName);
                 response.Message = $"Color successfully changed to `{color.ColorName}`";
                 return Ok(response);
             }
