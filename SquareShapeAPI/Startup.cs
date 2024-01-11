@@ -14,6 +14,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Components.Routing;
+using SquareShapeAPI.Contracts;
+using SquareShapeAPI.Repositories;
 
 namespace SquareShapeAPI
 {
@@ -29,6 +31,8 @@ namespace SquareShapeAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IColorRepository, ColorRepository>();
+
             services.AddSignalR();
 
             services.AddControllers();
